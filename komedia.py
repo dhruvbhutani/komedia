@@ -18,8 +18,9 @@ import sys
 from lxml import html
 import os
 from urllib2 import urlopen
-#import ConfigParser
-import functools as ft
+import ConfigParser
+import random
+#import getLatest
 
 __author__ = "Hiemanshu Sharma <mail@theindiangeek.in>"
 version = 0.1
@@ -41,9 +42,6 @@ class Ui_MainWindow(object):
         self.verticalLayout = QtGui.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setMargin(0)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.comboBox = QtGui.QComboBox(self.verticalLayoutWidget)
-        self.comboBox.setObjectName(_fromUtf8("comboBox"))
-        self.verticalLayout.addWidget(self.comboBox)
         self.label = QtGui.QLabel(self.verticalLayoutWidget)
         self.label.setObjectName(_fromUtf8("label"))
         self.verticalLayout.addWidget(self.label)
@@ -64,12 +62,11 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.lineEdit)
         self.label_4 = QtGui.QLabel(self.verticalLayoutWidget)
         self.label_4.setObjectName(_fromUtf8("label_4"))
-#        self.verticalLayout.addWidget(self.label_4)
-#        self.lineEdit_2 = QtGui.QLineEdit(self.verticalLayoutWidget)
-#        self.lineEdit_2.setObjectName(_fromUtf8("lineEdit_2"))
-#        self.verticalLayout.addWidget(self.lineEdit_2)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.verticalLayout.addItem(spacerItem)
+        self.pushButton_3 = QtGui.QPushButton(self.verticalLayoutWidget)
+        self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
+        self.verticalLayout.addWidget(self.pushButton_3)
         self.pushButton = QtGui.QPushButton(self.verticalLayoutWidget)
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
         self.verticalLayout.addWidget(self.pushButton)
@@ -124,19 +121,21 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuHelp.menuAction())
         self.textEdit.setText("XKCD is a webcomic of Romance, Math, Sarcasm and Language")
 
-#        config = ConfigParser.ConfigParser()
-#        config.read(os.path.expanduser("~/.komedia"))
-#        if not config.has_section("xkcd"):
-#            config.add_section("xkcd")
-#            comicid = 840
-#        else:
-#            comicid = config.get("xkcd", "comicid")
-        self.comicid = 840 
-        MainWindow.xkcd()
+        config = ConfigParser.ConfigParser()
+        config.read(os.path.expanduser("~/.komedia"))
+        if not config.has_section("xkcd"):
+            config.add_section("xkcd")
+#        self.comicid = getLatest.comicid()
+#        config.set("xkcd", "comicid", self.comicid)
+        
+        self.comicid = int(config.get("xkcd", "comicid", raw=True))
+        self.latest = int(config.get("xkcd", "comicid", raw=True))
+#        MainWindow.xkcd()
 
         self.retranslateUi(MainWindow)
         QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL("clicked()"), MainWindow.prevComic)
         QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL("clicked()"), MainWindow.nextComic)
+        QtCore.QObject.connect(self.pushButton_3, QtCore.SIGNAL("clicked()"), MainWindow.randComic)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -147,6 +146,7 @@ class Ui_MainWindow(object):
 #        self.label_4.setText(QtGui.QApplication.translate("MainWindow", "Date of Publishing", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton.setText(QtGui.QApplication.translate("MainWindow", "Previous Comic", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_2.setText(QtGui.QApplication.translate("MainWindow", "Next Comic", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_3.setText(QtGui.QApplication.translate("MainWindow", "Random Comic", None, QtGui.QApplication.UnicodeUTF8))
         self.menuFile.setTitle(QtGui.QApplication.translate("MainWindow", "File", None, QtGui.QApplication.UnicodeUTF8))
         self.menuConfig.setTitle(QtGui.QApplication.translate("MainWindow", "Config", None, QtGui.QApplication.UnicodeUTF8))
         self.menuHelp.setTitle(QtGui.QApplication.translate("MainWindow", "Help", None, QtGui.QApplication.UnicodeUTF8))
@@ -170,6 +170,7 @@ class Komedia(QtGui.QMainWindow):
         
         image_url = page.cssselect("div.s > img")[0].attrib['src']
         alt = page.cssselect("div.s img")[1].attrib['title']
+        
         self.ui.textEdit_2.setText(alt)
         self.ui.webView.setUrl(QtCore.QUrl(_fromUtf8(image_url)))
         self.ui.lineEdit.setText(self.page_url)
@@ -180,6 +181,13 @@ class Komedia(QtGui.QMainWindow):
 
     def nextComic(self):
         self.ui.comicid = self.ui.comicid + 1
+        if self.ui.comicid <= int(self.ui.latest):
+            self.xkcd()
+        else:
+            self.ui.statusbar.setText("This is the last compic right now") #fix
+
+    def randComic(self):
+        self.ui.comicid = random.randrange(1,self.ui.latest,1)
         self.xkcd()
 
 if __name__ == "__main__":
