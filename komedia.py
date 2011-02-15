@@ -120,20 +120,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuConfig.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
-        self.textEdit.setText("XKCD is a webcomic of Romance, Math, Sarcasm and Language")
-
-        config = ConfigParser.ConfigParser()
-        config.read(os.path.expanduser("~/.komedia"))
-        if not config.has_section("xkcd"):
-            config.add_section("xkcd")
-#        self.comicid = getLatest.comicid()
-#        config.set("xkcd", "comicid", self.comicid)
-     
-        self.comicid = int(config.get("xkcd", "comicid", raw=True))
-        self.latest = int(config.get("xkcd", "comicid", raw=True))
-#        MainWindow.xkcd()
-
-        self.retranslateUi(MainWindow)
+        
         QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL("clicked()"), MainWindow.prevComic)
         QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL("clicked()"), MainWindow.nextComic)
         QtCore.QObject.connect(self.pushButton_3, QtCore.SIGNAL("clicked()"), MainWindow.randComic)
@@ -144,7 +131,6 @@ class Ui_MainWindow(object):
         self.label.setText(QtGui.QApplication.translate("MainWindow", "Alt Text", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("MainWindow", "About Comic", None, QtGui.QApplication.UnicodeUTF8))
         self.label_3.setText(QtGui.QApplication.translate("MainWindow", "Link to Comic", None, QtGui.QApplication.UnicodeUTF8))
-#        self.label_4.setText(QtGui.QApplication.translate("MainWindow", "Date of Publishing", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton.setText(QtGui.QApplication.translate("MainWindow", "Previous Comic", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_2.setText(QtGui.QApplication.translate("MainWindow", "Next Comic", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_3.setText(QtGui.QApplication.translate("MainWindow", "Random Comic", None, QtGui.QApplication.UnicodeUTF8))
@@ -164,6 +150,23 @@ class Komedia(QtGui.QMainWindow):
         QtGui.QWidget.__init__(self, parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        if not os.path.exists(os.path.expanduser('~/.komedia')):
+            os.mkdir(os.path.expanduser('~/.komedia'))
+        if not os.path.exists(os.path.expanduser('~/.komedia/xkcd')):
+            os.mkdir(os.path.expanduser('~/.komedia/xkcd'))
+        self.ui.textEdit.setText("XKCD is a webcomic of Romance, Math, Sarcasm and Language")
+
+        config = ConfigParser.ConfigParser()
+        config.read(os.path.expanduser("~/.komedia/config"))
+        if not config.has_section("xkcd"):
+            config.add_section("xkcd")
+#        self.comicid = getLatest.comicid()
+#        config.set("xkcd", "comicid", self.comicid)
+        config.set("xkcd", "comicid", "844")
+     
+        self.comicid = int(config.get("xkcd", "comicid", raw=True))
+        self.latest = int(config.get("xkcd", "comicid", raw=True))
+#        MainWindow.xkcd()
     
     def xkcd(self):
         self.page_url = "http://xkcd.com/%s/" % self.ui.comicid
@@ -182,13 +185,13 @@ class Komedia(QtGui.QMainWindow):
 
     def nextComic(self):
         self.ui.comicid = self.ui.comicid + 1
-#        if self.ui.comicid <= int(self.ui.latest):
-#            self.xkcd()
-#        else:
-        dlg = QtGui.QDialog()
-        dialog = close.Ui_Dialog()
-        dialog.setupUi(dlg)
-        dlg.exec_()
+        if self.ui.comicid <= int(self.ui.latest):
+            self.xkcd()
+        else:
+            dlg = QtGui.QDialog()
+            dialog = close.Ui_Dialog()
+            dialog.setupUi(dlg)
+            dlg.exec_()
             
     def randComic(self):
         self.ui.comicid = random.randrange(1,self.ui.latest+1,1)
