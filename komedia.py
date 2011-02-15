@@ -21,6 +21,7 @@ from urllib2 import urlopen
 import ConfigParser
 import random
 #import getLatest
+import close 
 
 __author__ = "Hiemanshu Sharma <mail@theindiangeek.in>"
 version = 0.1
@@ -127,7 +128,7 @@ class Ui_MainWindow(object):
             config.add_section("xkcd")
 #        self.comicid = getLatest.comicid()
 #        config.set("xkcd", "comicid", self.comicid)
-        
+     
         self.comicid = int(config.get("xkcd", "comicid", raw=True))
         self.latest = int(config.get("xkcd", "comicid", raw=True))
 #        MainWindow.xkcd()
@@ -167,10 +168,10 @@ class Komedia(QtGui.QMainWindow):
     def xkcd(self):
         self.page_url = "http://xkcd.com/%s/" % self.ui.comicid
         page = html.parse(urlopen(self.page_url)).getroot()
-        
+       
         image_url = page.cssselect("div.s > img")[0].attrib['src']
         alt = page.cssselect("div.s img")[1].attrib['title']
-        
+       
         self.ui.textEdit_2.setText(alt)
         self.ui.webView.setUrl(QtCore.QUrl(_fromUtf8(image_url)))
         self.ui.lineEdit.setText(self.page_url)
@@ -181,13 +182,16 @@ class Komedia(QtGui.QMainWindow):
 
     def nextComic(self):
         self.ui.comicid = self.ui.comicid + 1
-        if self.ui.comicid <= int(self.ui.latest):
-            self.xkcd()
-        else:
-            self.ui.statusbar.setText("This is the last compic right now") #fix
-
+#        if self.ui.comicid <= int(self.ui.latest):
+#            self.xkcd()
+#        else:
+        dlg = QtGui.QDialog()
+        dialog = close.Ui_Dialog()
+        dialog.setupUi(dlg)
+        dlg.exec_()
+            
     def randComic(self):
-        self.ui.comicid = random.randrange(1,self.ui.latest,1)
+        self.ui.comicid = random.randrange(1,self.ui.latest+1,1)
         self.xkcd()
 
 if __name__ == "__main__":
