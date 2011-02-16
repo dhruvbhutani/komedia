@@ -85,41 +85,7 @@ class Ui_MainWindow(object):
         self.webView.setObjectName(_fromUtf8("webView"))
         self.verticalLayout_2.addWidget(self.webView)
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 959, 22))
-        self.menubar.setObjectName(_fromUtf8("menubar"))
-        self.menuFile = QtGui.QMenu(self.menubar)
-        self.menuFile.setObjectName(_fromUtf8("menuFile"))
-        self.menuConfig = QtGui.QMenu(self.menubar)
-        self.menuConfig.setObjectName(_fromUtf8("menuConfig"))
-        self.menuHelp = QtGui.QMenu(self.menubar)
-        self.menuHelp.setObjectName(_fromUtf8("menuHelp"))
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtGui.QStatusBar(MainWindow)
-        self.statusbar.setObjectName(_fromUtf8("statusbar"))
-        MainWindow.setStatusBar(self.statusbar)
-        self.actionSave_Comics = QtGui.QAction(MainWindow)
-        self.actionSave_Comics.setObjectName(_fromUtf8("actionSave_Comics"))
-        self.actionExport_Config = QtGui.QAction(MainWindow)
-        self.actionExport_Config.setObjectName(_fromUtf8("actionExport_Config"))
-        self.actionImport_Config = QtGui.QAction(MainWindow)
-        self.actionImport_Config.setObjectName(_fromUtf8("actionImport_Config"))
-        self.actionVerify_Config = QtGui.QAction(MainWindow)
-        self.actionVerify_Config.setObjectName(_fromUtf8("actionVerify_Config"))
-        self.actionCreating_Config = QtGui.QAction(MainWindow)
-        self.actionCreating_Config.setObjectName(_fromUtf8("actionCreating_Config"))
-        self.actionAbout_Komedia = QtGui.QAction(MainWindow)
-        self.actionAbout_Komedia.setObjectName(_fromUtf8("actionAbout_Komedia"))
-        self.menuFile.addAction(self.actionSave_Comics)
-        self.menuConfig.addAction(self.actionExport_Config)
-        self.menuConfig.addAction(self.actionImport_Config)
-        self.menuConfig.addAction(self.actionVerify_Config)
-        self.menuHelp.addAction(self.actionCreating_Config)
-        self.menuHelp.addSeparator()
-        self.menuHelp.addAction(self.actionAbout_Komedia)
-        self.menubar.addAction(self.menuFile.menuAction())
-        self.menubar.addAction(self.menuConfig.menuAction())
-        self.menubar.addAction(self.menuHelp.menuAction())
+        
         self.retranslateUi(MainWindow)
 
         QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL("clicked()"), MainWindow.prevComic)
@@ -135,15 +101,6 @@ class Ui_MainWindow(object):
         self.pushButton.setText(QtGui.QApplication.translate("MainWindow", "Previous Comic", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_2.setText(QtGui.QApplication.translate("MainWindow", "Next Comic", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_3.setText(QtGui.QApplication.translate("MainWindow", "Random Comic", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuFile.setTitle(QtGui.QApplication.translate("MainWindow", "File", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuConfig.setTitle(QtGui.QApplication.translate("MainWindow", "Config", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuHelp.setTitle(QtGui.QApplication.translate("MainWindow", "Help", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionSave_Comics.setText(QtGui.QApplication.translate("MainWindow", "Save Comics", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionExport_Config.setText(QtGui.QApplication.translate("MainWindow", "Export Config", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionImport_Config.setText(QtGui.QApplication.translate("MainWindow", "Import Config", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionVerify_Config.setText(QtGui.QApplication.translate("MainWindow", "Verify Config", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionCreating_Config.setText(QtGui.QApplication.translate("MainWindow", "Creating Config", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionAbout_Komedia.setText(QtGui.QApplication.translate("MainWindow", "About Komedia", None, QtGui.QApplication.UnicodeUTF8))
         
 class Komedia(QtGui.QMainWindow):
     
@@ -157,27 +114,47 @@ class Komedia(QtGui.QMainWindow):
             os.mkdir(os.path.expanduser('~/.komedia/xkcd'))
         self.ui.textEdit.setText("XKCD is a webcomic of Romance, Math, Sarcasm and Language")
 
-        config = ConfigParser.ConfigParser()
-        if not config.read(os.path.expanduser("~/.komedia/config")):
-	        config.add_section("xkcd")
+        self.config = ConfigParser.ConfigParser()
+        if not self.config.read(os.path.expanduser("~/.komedia/config")):
+	        self.config.add_section("xkcd")
 	        self.ui.latest = int(getLatest.comicid(self))
-	        config.set("xkcd", "comicid", self.ui.latest)
+	        self.config.set("xkcd", "comicid", self.ui.latest)
 	        self.ui.comicid = self.ui.latest
-	        config.write(open(os.path.expanduser('~/.komedia/config'),'w'))
+	        self.config.write(open(os.path.expanduser('~/.komedia/config'),'w'))
         else:
-		    self.ui.latest = int(getLatest.comicid(self))
-		    self.ui.comicid = int(config.get("xkcd", "comicid", raw=True))
+            self.config.read(os.path.expanduser('~/.komedia/config'))
+            self.ui.latest = int(getLatest.comicid(self))
+            self.ui.comicid = int(self.config.get("xkcd", "comicid", raw=True))
         self.xkcd()
     
     def xkcd(self):
-        self.page_url = "http://xkcd.com/%s/" % self.ui.comicid
-        page = html.parse(urlopen(self.page_url)).getroot()
-       
-        image_url = page.cssselect("div.s > img")[0].attrib['src']
-        alt = page.cssselect("div.s img")[1].attrib['title']
+        image_path = "~/.komedia/xkcd/%s.png" % self.ui.comicid
+        self.config1 = ConfigParser.ConfigParser()
+        if not os.path.exists(os.path.expanduser(image_path)):
+            self.page_url = "http://xkcd.com/%s/" % self.ui.comicid
+            page = html.parse(urlopen(self.page_url)).getroot()
+            image_url = page.cssselect("div.s > img")[0].attrib['src']
+            alt = page.cssselect("div.s img")[1].attrib['title']
+            image = urlopen(image_url)
+            op = open(os.path.expanduser(image_path), 'wb')
+            op.write(image.read())
+            op.close()
+            if not self.config1.read(os.path.expanduser("~/.komedia/xkcd/alts")):
+                self.config1.add_section("xkcd")
+                self.config1.set("xkcd", str(self.ui.comicid), alt)
+                self.config1.write(open(os.path.expanduser('~/.komedia/xkcd/alts'), 'w'))
+            else:
+                self.config1.read(os.path.expanduser('~/.komedia/xkcd/alts'))
+                self.config1.set("xkcd", str(self.ui.comicid), alt)
+                self.config1.write(open(os.path.expanduser('~/.komedia/xkcd/alts'), 'w'))
+        else:
+            self.config1.read(os.path.expanduser('~/.komedia/xkcd/alts'))
+            alt = self.config1.get("xkcd", str(self.ui.comicid))
+            self.page_url = "http://xkcd.com/%s/" % self.ui.comicid
         
         self.ui.textEdit_2.setText(alt)
-        self.ui.webView.setUrl(QtCore.QUrl(_fromUtf8(image_url)))
+        imagepath = "file://%s" % (os.path.expanduser(image_path))
+        self.ui.webView.setUrl(QtCore.QUrl(_fromUtf8(imagepath)))
         self.ui.lineEdit.setText(self.page_url)
 
     def prevComic(self):
