@@ -1,4 +1,4 @@
-close.pyc
+*.pyc
 komedia1.py
 patch.py
 test.patch

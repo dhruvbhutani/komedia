@@ -20,7 +20,7 @@ import os
 from urllib2 import urlopen
 import ConfigParser
 import random
-#import getLatest
+import getLatest
 import close 
 
 __author__ = "Hiemanshu Sharma <mail@theindiangeek.in>"
@@ -120,7 +120,8 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuConfig.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
-        
+        self.retranslateUi(MainWindow)
+
         QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL("clicked()"), MainWindow.prevComic)
         QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL("clicked()"), MainWindow.nextComic)
         QtCore.QObject.connect(self.pushButton_3, QtCore.SIGNAL("clicked()"), MainWindow.randComic)
@@ -157,16 +158,16 @@ class Komedia(QtGui.QMainWindow):
         self.ui.textEdit.setText("XKCD is a webcomic of Romance, Math, Sarcasm and Language")
 
         config = ConfigParser.ConfigParser()
-        config.read(os.path.expanduser("~/.komedia/config"))
-        if not config.has_section("xkcd"):
-            config.add_section("xkcd")
-#        self.comicid = getLatest.comicid()
-#        config.set("xkcd", "comicid", self.comicid)
-        config.set("xkcd", "comicid", "844")
-     
-        self.comicid = int(config.get("xkcd", "comicid", raw=True))
-        self.latest = int(config.get("xkcd", "comicid", raw=True))
-#        MainWindow.xkcd()
+        if not config.read(os.path.expanduser("~/.komedia/config")):
+	        config.add_section("xkcd")
+	        self.ui.latest = int(getLatest.comicid(self))
+	        config.set("xkcd", "comicid", self.ui.latest)
+	        self.ui.comicid = self.ui.latest
+	        config.write(open(os.path.expanduser('~/.komedia/config'),'w'))
+        else:
+		    self.ui.latest = int(getLatest.comicid(self))
+		    self.ui.comicid = int(config.get("xkcd", "comicid", raw=True))
+        self.xkcd()
     
     def xkcd(self):
         self.page_url = "http://xkcd.com/%s/" % self.ui.comicid
@@ -174,7 +175,7 @@ class Komedia(QtGui.QMainWindow):
        
         image_url = page.cssselect("div.s > img")[0].attrib['src']
         alt = page.cssselect("div.s img")[1].attrib['title']
-       
+        
         self.ui.textEdit_2.setText(alt)
         self.ui.webView.setUrl(QtCore.QUrl(_fromUtf8(image_url)))
         self.ui.lineEdit.setText(self.page_url)
