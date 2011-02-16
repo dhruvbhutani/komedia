@@ -1,3 +1,4 @@
-- Add config support (MUST FIX NOW)
+- Add config support (MUST FIX NOW) - Fixed
+- Add cache support (Download all images to ~/.komedia/xkcd and display from there)
 - Add options to add more websites
 - Do a survey for popular comics
