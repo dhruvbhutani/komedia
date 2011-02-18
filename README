@@ -1,0 +1,7 @@
+Komedia is a comic reader (currently only XKCD) written in Qt and Python.
+
+To install deps : 
+yum install pyqt4 python
+
+For feature requests, bugs, fixs or patches email me at mail@theindiangeek.in
+
