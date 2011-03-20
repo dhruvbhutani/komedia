@@ -1,5 +1,6 @@
 - Add config support (MUST FIX NOW) - Fixed - Done and completed!
 - Add cache support (Download all images to ~/.komedia/xkcd and display from there) - Done W00T!
+- add initial and final date check for dilbert and garfield (MUST FIX NOW)
 - add a notification
 - make a script for cron job to use
 - Add options to add more websites
