@@ -24,7 +24,7 @@ import getLatest
 import close 
 
 __author__ = "Hiemanshu Sharma <mail@theindiangeek.in>"
-version = 0.1
+version = 0.1-91
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -43,6 +43,9 @@ class Ui_MainWindow(object):
         self.verticalLayout = QtGui.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setMargin(0)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
+        self.comboBox = QtGui.QComboBox(self.verticalLayoutWidget)
+        self.comboBox.setObjectName(_fromUtf8("comboBox"))
+        self.verticalLayout.addWidget(self.comboBox)
         self.label = QtGui.QLabel(self.verticalLayoutWidget)
         self.label.setObjectName(_fromUtf8("label"))
         self.verticalLayout.addWidget(self.label)
@@ -91,6 +94,7 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL("clicked()"), MainWindow.prevComic)
         QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL("clicked()"), MainWindow.nextComic)
         QtCore.QObject.connect(self.pushButton_3, QtCore.SIGNAL("clicked()"), MainWindow.randComic)
+        QtCore.QObject.connect(self.comboBox, QtCore.SIGNAL("activated(QString)"), MainWindow.comic)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -112,9 +116,22 @@ class Komedia(QtGui.QMainWindow):
             os.mkdir(os.path.expanduser('~/.komedia'))
         if not os.path.exists(os.path.expanduser('~/.komedia/xkcd')):
             os.mkdir(os.path.expanduser('~/.komedia/xkcd'))
-        self.ui.textEdit.setText("XKCD is a webcomic of Romance, Math, Sarcasm and Language")
-
-        self.config = ConfigParser.ConfigParser()
+        if not os.path.exists(os.path.expanduser('~/.komedia/dilbert')):
+            os.mkdir(os.path.expanduser('~/.komedia/dilbert'))
+        #if not os.path.exists(os.path.expanduser('~/.komedia/garfield')):
+        #    os.mkdir(os.path.expanduser('~/.komedia/garfield'))            
+        #if not os.path.exists(os.path.expanduser('~/.komedia/calivinandhobbes')):
+        #    os.mkdir(os.path.expanduser('~/.komedia/calvinandhobbes'))
+        for i in ('Dilbert','XKCD'):
+            self.ui.comboBox.addItem(i)
+        self.xkcd()
+        
+    def comic(self):
+	print self.ui.comboBox.currentText()        
+    
+    def xkcd(self):
+	self.ui.textEdit.setText("XKCD is a webcomic of Romance, Math, Sarcasm and Language")
+	self.config = ConfigParser.ConfigParser()
         if not self.config.read(os.path.expanduser("~/.komedia/config")):
 	        self.config.add_section("xkcd")
 	        self.ui.latest = int(getLatest.comicid(self))
@@ -125,9 +142,6 @@ class Komedia(QtGui.QMainWindow):
             self.config.read(os.path.expanduser('~/.komedia/config'))
             self.ui.latest = int(getLatest.comicid(self))
             self.ui.comicid = int(self.config.get("xkcd", "comicid", raw=True))
-        self.xkcd()
-    
-    def xkcd(self):
         image_path = "~/.komedia/xkcd/%s.png" % self.ui.comicid
         self.config1 = ConfigParser.ConfigParser()
         if not os.path.exists(os.path.expanduser(image_path)):
@@ -174,6 +188,7 @@ class Komedia(QtGui.QMainWindow):
     def randComic(self):
         self.ui.comicid = random.randrange(1,self.ui.latest+1,1)
         self.xkcd()
+     
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)

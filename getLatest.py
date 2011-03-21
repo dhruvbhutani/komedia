@@ -14,7 +14,7 @@ from lxml import html
 from urllib2 import urlopen
 
 def comicid(self):
-	page = html.parse(urlopen("http://xkcd.com")).getroot()
-	h = page.cssselect("h3")[0].text
-	latest = h[46:-1]
-	return latest
+    page = html.parse(urlopen("http://xkcd.com")).getroot()
+    h = page.cssselect("h3")[0].text
+    latest = h[46:-1]
+    return latest
