@@ -11,6 +11,7 @@ class Komedia(QtGui.QMainWindow):
 	QtGui.QWidget.__init__(self, parent)
 	self.ui = gui.Ui_MainWindow()
 	self.ui.setupUi(self)
+    self.ui.comboBox.addItem('XKCD')
 
     def changeComic(self):
         print 'Insert Comic viewing code here'

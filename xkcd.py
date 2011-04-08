@@ -31,10 +31,6 @@ class XKCD(QtGui.QMainWindow):
             os.mkdir(os.path.expanduser('~/.komedia'))
         if not os.path.exists(os.path.expanduser('~/.komedia/xkcd')):
             os.mkdir(os.path.expanduser('~/.komedia/xkcd'))
-        if not os.path.exists(os.path.expanduser('~/.komedia/dilbert')):
-            os.mkdir(os.path.expanduser('~/.komedia/dilbert'))
-        for i in ('Dilbert','XKCD'):
-            self.ui.comboBox.addItem(i)
         
     def xkcd(self):
 	self.ui.textEdit.setText("XKCD is a webcomic of Romance, Math, Sarcasm and Language")
