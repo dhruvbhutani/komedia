@@ -27,14 +27,18 @@ class Komedia(QtGui.QMainWindow):
 
     def nextComic(self):
         self.comicData = XKCD.nextComic(self.xkcd)
-        self.changeComic()
+        if self.comicData != None:
+            self.changeComic()
 
     def prevComic(self):
         self.comicData = XKCD.prevComic(self.xkcd)
-        self.changeComic()
+        if self.comicData != None:
+            self.changeComic()
 
     def randComic(self):
-        print 'Blah Blah Blah'
+        self.comicData = XKCD.randComic(self.xkcd)
+        if self.comicData != None:
+            self.changeComic()
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)

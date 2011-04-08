@@ -6,6 +6,7 @@
 ###
 ### XKCD Plugin for komedia
 
+from PyQt4 import QtCore, QtGui
 import sys
 from lxml import html
 import os
@@ -19,7 +20,13 @@ class XKCD():
     def __init__(self):
         if not os.path.exists(os.path.expanduser('~/.komedia/xkcd')):
             os.mkdir(os.path.expanduser('~/.komedia/xkcd'))
+        self.getLatest()
         self.comicid = 883
+    
+    def getLatest(self):
+        page = html.parse(urlopen('http://xkcd.com')).getroot()
+        h = page.cssselect('h3')[0].text
+        self.latest = int(h[46:-1])
 
     def comic(self):
         self.obj = ['XKCD is a webcomic of Romance, Math, Sarcasm and Language']
@@ -58,6 +65,15 @@ class XKCD():
         return self.comic()
 
     def nextComic(self):
-        self.comicid += 1
-        return self.comic()
+        if self.comicid == self.latest:
+            dlg = QtGui.QDialog()
+            dialog = close.Ui_Dialog()
+            dialog.setupUi(dlg)
+            dlg.exec_()
+        else:
+            self.comicid += 1
+            return self.comic()
 
+    def randComic(self):
+        self.comicid = random.randrange(1, self.latest+1, 1)
+        return self.comic()
