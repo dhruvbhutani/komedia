@@ -3,27 +3,38 @@
 import gui
 from PyQt4 import QtCore, QtGui
 import sys
-
+import os
+from xkcd import XKCD
 
 class Komedia(QtGui.QMainWindow):
     
     def __init__(self, parent=None):
-	QtGui.QWidget.__init__(self, parent)
-	self.ui = gui.Ui_MainWindow()
-	self.ui.setupUi(self)
-    self.ui.comboBox.addItem('XKCD')
+        QtGui.QWidget.__init__(self, parent)
+        self.ui = gui.Ui_MainWindow()
+        self.ui.setupUi(self)
+        self.ui.comboBox.addItem('XKCD')
+        if not os.path.exists(os.path.expanduser('~/.komedia')):
+            os.mkdir(os.path.expanduser('~/.komedia'))
+        self.xkcd = XKCD()
+        self.comicData = XKCD.comic(self.xkcd)
+        self.changeComic()
 
     def changeComic(self):
-        print 'Insert Comic viewing code here'
+        self.ui.textEdit.setText(self.comicData[0])
+        self.ui.textEdit_2.setText(self.comicData[1])
+        self.ui.webView.setUrl(QtCore.QUrl(self.comicData[2]))
+        self.ui.lineEdit.setText(self.comicData[3])
 
     def nextComic(self):
-        print 'show next comic'
+        self.comicData = XKCD.nextComic(self.xkcd)
+        self.changeComic()
 
     def prevComic(self):
-        print 'show previous comic'
+        self.comicData = XKCD.prevComic(self.xkcd)
+        self.changeComic()
 
     def randComic(self):
-        print 'display a random dated comic'
+        print 'Blah Blah Blah'
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
