@@ -60,7 +60,13 @@ class XKCD():
         return self.obj
 
     def prevComic(self):
-        self.comicid -= 1
+        if self.comicid == 1:
+            dlg = QtGui.QDialog()
+            dialog = first.Ui_Dialog()
+            dialog.setupUi(dlg)
+            dlg.exec_()
+        else:
+            self.comicid -= 1
         return self.comic()
 
     def nextComic(self):

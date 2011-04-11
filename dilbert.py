@@ -13,7 +13,7 @@ from PyQt4 import QtCore, QtGui
 from lxml import html
 from urllib2 import urlopen
 import random
-import close
+import first, last
 import os
 from datetime import date, timedelta
 
@@ -30,9 +30,9 @@ class Dilbert():
         self.obj.append('No Alt text available for this comic')
         image_path = '~/.komedia/dilbert/%s.gif' %self.comicid
         if not os.path.exists(os.path.expanduser(image_path)):
-            self.page_url = 'http://dilbert.com/strips/%s' %self.comicid
+            self.page_url = 'http://dilbert.com/fast/%s' %self.comicid
             page = html.parse(urlopen(self.page_url)).getroot()
-            image_link = page.cssselect("div.STR_Container > input")[0].attrib['value']
+            image_link = page.cssselect('div.LGT_SiteWrapper > img')[0].attrib['src']
             image_url = 'http://dilbert.com%s' %image_link
             image = urlopen(image_url)
             op = open(os.path.expanduser(image_path), 'wb')
@@ -45,13 +45,19 @@ class Dilbert():
         return self.obj
 
     def prevComic(self):
-        self.comicid -= timedelta(days=1)
+        if self.comicid == date(1989, 4, 16):
+            dlg = QtGui.QDialog()
+            dialog = last.Ui_Dialog()
+            dialog.setupUi(dlg)
+            dlg.exec_()
+        else:
+            self.comicid -= timedelta(days=1)
         return self.comic()
 
     def nextComic(self):
         if self.comicid == date.today():
             dlg = QtGui.QDialog()
-            dialog = close.Ui_Dialog()
+            dialog = last.Ui_Dialog()
             dialog.setupUi(dlg)
             dlg.exec_()
         else:
