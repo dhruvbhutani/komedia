@@ -13,34 +13,53 @@ class Komedia(QtGui.QMainWindow):
         QtGui.QWidget.__init__(self, parent)
         self.ui = gui.Ui_MainWindow()
         self.ui.setupUi(self)
-        self.ui.comboBox.addItem('XKCD')
+        for i in ['Dilbert', 'XKCD']:
+            self.ui.comboBox.addItem(i)
         if not os.path.exists(os.path.expanduser('~/.komedia')):
             os.mkdir(os.path.expanduser('~/.komedia'))
-        #self.xkcd = XKCD()
         self.dilbert = Dilbert()
+        self.xkcd = XKCD()
         self.comicData = Dilbert.comic(self.dilbert)
-        self.changeComic()
+        self.loadComic()
+        self.currentComic = 'Dilbert'
 
-    def changeComic(self):
+    def changeComic(self, text):
+        text = str(text)
+        if cmp(text, 'Dilbert') == 0:
+            self.comicData = Dilbert.comic(self.dilbert)
+            self.currentComic = 'Dilbert'
+            self.loadComic()
+        if cmp(text, 'XKCD') == 0:
+            self.comicData = XKCD.comic(self.xkcd)
+            self.currentComic = 'XKCD'
+            self.loadComic()
+    
+    def loadComic(self):
         self.ui.textEdit.setText(self.comicData[0])
         self.ui.textEdit_2.setText(self.comicData[1])
         self.ui.webView.setUrl(QtCore.QUrl(self.comicData[2]))
         self.ui.lineEdit.setText(self.comicData[3])
 
     def nextComic(self):
-        self.comicData = Dilbert.nextComic(self.dilbert)
+        if cmp(self.currentComic, 'Dilbert') == 0:
+            self.comicData = Dilbert.nextComic(self.dilbert)
+        else:
+            self.comicData = XKCD.nextComic(self.xkcd)
         if self.comicData != None:
-            self.changeComic()
+            self.loadComic()
 
     def prevComic(self):
-        self.comicData = Dilbert.prevComic(self.dilbert)
+        if cmp(self.currentComic, 'Dilbert') == 0:
+            self.comicData = Dilbert.prevComic(self.dilbert)
+        else:
+            self.comicData = XKCD.prevComic(self.xkcd)
         if self.comicData != None:
-            self.changeComic()
+            self.loadComic()
 
     def randComic(self):
         self.comicData = XKCD.randComic(self.xkcd)
         if self.comicData != None:
-            self.changeComic()
+            self.loadComic()
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)

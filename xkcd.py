@@ -6,6 +6,7 @@
 ###
 ### XKCD Plugin for komedia
 
+from PyQt4 import QtCore, QtGui
 import sys
 from lxml import html
 import os
@@ -20,7 +21,7 @@ class XKCD():
         if not os.path.exists(os.path.expanduser('~/.komedia/xkcd')):
             os.mkdir(os.path.expanduser('~/.komedia/xkcd'))
         self.getLatest()
-        self.comicid = 883
+        self.comicid = self.latest
     
     def getLatest(self):
         page = html.parse(urlopen('http://xkcd.com')).getroot()
