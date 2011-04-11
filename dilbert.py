@@ -9,29 +9,51 @@
 ###
 ###
 
+from PyQt4 import QtCore, QtGui
 from lxml import html
 from urllib2 import urlopen
 import random
+import close
+import os
+from datetime import date, timedelta
 
-def genrand():
-    year = random.randrange(1989,2012,1)
-    month = random.randrange(1,13,1)
-    if month == 1 or month == 3 or month == 5 or month == 7 or month == 8 or month == 10 or month == 12:
-	day = random.randrange(1,32,1)
-    else:
-	if month == 4 or month == 6 or month == 9 or month == 11:
-	    day = random.randrange(1,31,1)
-	else:
-	    if year % 4 == 0:
-		day = random.randrange(1,30,1)
-	    else:
-		day = random.randrange(1,29,1)
-    date = "%s-%s-%s" %(year, month, day)
-    return date
 
-def getlink(date):
-    page_url = "http://www.dilbert.com/strips/%s/" %date
-    page = html.parse(urlopen(page_url)).getroot()
-    image_link = page.cssselect("div.STR_Container > input")[0].attrib['value']
-    image_url = "http://dilbert.com%s" %image_link
-    return image_url
+class Dilbert():
+
+    def __init__(self):
+        if not os.path.exists(os.path.expanduser('~/.komedia/dilbert')):
+            os.mkdir(os.path.expanduser('~/.komedia/dilbert'))
+        self.comicid = date.today()
+
+    def comic(self):
+        self.obj = ['Dilbert is a comic about ...']
+        self.obj.append('No Alt text available for this comic')
+        image_path = '~/.komedia/dilbert/%s.gif' %self.comicid
+        if not os.path.exists(os.path.expanduser(image_path)):
+            self.page_url = 'http://dilbert.com/strips/%s' %self.comicid
+            page = html.parse(urlopen(self.page_url)).getroot()
+            image_link = page.cssselect("div.STR_Container > input")[0].attrib['value']
+            image_url = 'http://dilbert.com%s' %image_link
+            image = urlopen(image_url)
+            op = open(os.path.expanduser(image_path), 'wb')
+            op.write (image.read())
+            op.close
+        imagepath = 'file://%s' %(os.path.expanduser(image_path))
+        self.obj.append(imagepath)
+        page_url = 'http://dilbert.com/strips/%s' %str(self.comicid)
+        self.obj.append(page_url)
+        return self.obj
+
+    def prevComic(self):
+        self.comicid -= timedelta(days=1)
+        return self.comic()
+
+    def nextComic(self):
+        if self.comicid == date.today():
+            dlg = QtGui.QDialog()
+            dialog = close.Ui_Dialog()
+            dialog.setupUi(dlg)
+            dlg.exec_()
+        else:
+            self.comicid += timedelta(days=1)
+            return self.comic()

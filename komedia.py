@@ -5,6 +5,7 @@ from PyQt4 import QtCore, QtGui
 import sys
 import os
 from xkcd import XKCD
+from dilbert import Dilbert
 
 class Komedia(QtGui.QMainWindow):
     
@@ -15,8 +16,9 @@ class Komedia(QtGui.QMainWindow):
         self.ui.comboBox.addItem('XKCD')
         if not os.path.exists(os.path.expanduser('~/.komedia')):
             os.mkdir(os.path.expanduser('~/.komedia'))
-        self.xkcd = XKCD()
-        self.comicData = XKCD.comic(self.xkcd)
+        #self.xkcd = XKCD()
+        self.dilbert = Dilbert()
+        self.comicData = Dilbert.comic(self.dilbert)
         self.changeComic()
 
     def changeComic(self):
@@ -26,12 +28,12 @@ class Komedia(QtGui.QMainWindow):
         self.ui.lineEdit.setText(self.comicData[3])
 
     def nextComic(self):
-        self.comicData = XKCD.nextComic(self.xkcd)
+        self.comicData = Dilbert.nextComic(self.dilbert)
         if self.comicData != None:
             self.changeComic()
 
     def prevComic(self):
-        self.comicData = XKCD.prevComic(self.xkcd)
+        self.comicData = Dilbert.prevComic(self.dilbert)
         if self.comicData != None:
             self.changeComic()
 

@@ -6,7 +6,6 @@
 ###
 ### XKCD Plugin for komedia
 
-from PyQt4 import QtCore, QtGui
 import sys
 from lxml import html
 import os
