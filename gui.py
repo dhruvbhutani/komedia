@@ -101,7 +101,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
+        MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "Komedia", None, QtGui.QApplication.UnicodeUTF8))
         self.label_4.setText(QtGui.QApplication.translate("MainWindow", "Title", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("MainWindow", "Alt Text", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("MainWindow", "About Comic", None, QtGui.QApplication.UnicodeUTF8))
