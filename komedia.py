@@ -21,18 +21,18 @@ class Komedia(QtGui.QMainWindow):
         self.xkcd = XKCD()
         self.comicData = Dilbert.comic(self.dilbert)
         self.loadComic()
-        self.currentComic = 'Dilbert'
+        self.comic = 'Dilbert'
 
     def changeComic(self, text):
         text = str(text)
-        if cmp(text, 'Dilbert') == 0:
+        if text == 'Dilbert':
             self.comicData = Dilbert.comic(self.dilbert)
-            self.currentComic = 'Dilbert'
+            self.comic = 'Dilbert'
             self.loadComic()
-        if cmp(text, 'XKCD') == 0:
-            self.comicData = XKCD.comic(self.xkcd)
-            self.currentComic = 'XKCD'
-            self.loadComic()
+        else:
+            if text == 'XKCD':
+                self.comicData = XKCD.comic(self.xkcd)
+                self.loadComic()
     
     def loadComic(self):
         self.ui.textEdit.setText(self.comicData[0])
@@ -41,22 +41,29 @@ class Komedia(QtGui.QMainWindow):
         self.ui.lineEdit.setText(self.comicData[3])
 
     def nextComic(self):
-        if cmp(self.currentComic, 'Dilbert') == 0:
-            self.comicData = Dilbert.nextComic(self.dilbert)
-        else:
-            self.comicData = XKCD.nextComic(self.xkcd)
+        if self.comic == 'Dilbert':
+           self.comicData = Dilbert.nextComic(self.dilbert)
+       else:
+           if self.comic == 'XKCD':
+               self.comicData = XKCD.nextComic(self.xkcd)
         if self.comicData != None:
             self.loadComic()
 
     def prevComic(self):
-        if cmp(self.currentComic, 'Dilbert') == 0:
+        if self.comic == 'Dilbert':
             self.comicData = Dilbert.prevComic(self.dilbert)
         else:
-            self.comicData = XKCD.prevComic(self.xkcd)
+            if self.comic == 'XKCD':
+                self.comicData = XKCD.prevComic(self.xkcd)
         if self.comicData != None:
             self.loadComic()
 
     def randComic(self):
+        if self.comic == 'Dilbert':
+            self.comicData = Dilbert.randComic(self.dilbert)
+        else:
+            if self.comic == 'XKCD':
+                self.comciData = XKCD.randComic(self.xkcd)
         self.comicData = XKCD.randComic(self.xkcd)
         if self.comicData != None:
             self.loadComic()
