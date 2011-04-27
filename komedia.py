@@ -17,11 +17,11 @@ class Komedia(QtGui.QMainWindow):
             self.ui.comboBox.addItem(i)
         if not os.path.exists(os.path.expanduser('~/.komedia')):
             os.mkdir(os.path.expanduser('~/.komedia'))
-        self.dilbert = Dilbert()
-        self.xkcd = XKCD()
-        self.comicData = Dilbert.comic(self.dilbert)
-        self.loadComic()
-        self.comic = 'Dilbert'
+#        self.dilbert = Dilbert()
+#        self.xkcd = XKCD()
+#        self.comicData = Dilbert.comic(self.dilbert)
+#        self.loadComic()
+#        self.comic = 'Dilbert'
 
     def changeComic(self, text):
         text = str(text)
@@ -33,6 +33,7 @@ class Komedia(QtGui.QMainWindow):
             if text == 'XKCD':
                 self.comicData = XKCD.comic(self.xkcd)
                 self.loadComic()
+                self.comic = 'XKCD'
     
     def loadComic(self):
         self.ui.textEdit.setText(self.comicData[0])
@@ -43,7 +44,7 @@ class Komedia(QtGui.QMainWindow):
     def nextComic(self):
         if self.comic == 'Dilbert':
            self.comicData = Dilbert.nextComic(self.dilbert)
-       else:
+        else:
            if self.comic == 'XKCD':
                self.comicData = XKCD.nextComic(self.xkcd)
         if self.comicData != None:
@@ -64,7 +65,6 @@ class Komedia(QtGui.QMainWindow):
         else:
             if self.comic == 'XKCD':
                 self.comciData = XKCD.randComic(self.xkcd)
-        self.comicData = XKCD.randComic(self.xkcd)
         if self.comicData != None:
             self.loadComic()
 

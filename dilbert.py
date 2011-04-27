@@ -24,6 +24,8 @@ class Dilbert():
         if not os.path.exists(os.path.expanduser('~/.komedia/dilbert')):
             os.mkdir(os.path.expanduser('~/.komedia/dilbert'))
         self.comicid = date.today()
+        self.comicStart = date(1989, 4, 16)
+        self.comicEnd = date.today()
 
     def comic(self):
         self.obj = ['Dilbert is a comic about ...']
@@ -45,17 +47,17 @@ class Dilbert():
         return self.obj
 
     def prevComic(self):
-        if self.comicid == date(1989, 4, 16):
+        if self.comicid == self.comicStart:
             dlg = QtGui.QDialog()
-            dialog = last.Ui_Dialog()
+            dialog = first.Ui_Dialog()
             dialog.setupUi(dlg)
             dlg.exec_()
         else:
             self.comicid -= timedelta(days=1)
-        return self.comic()
+            return self.comic()
 
     def nextComic(self):
-        if self.comicid == date.today():
+        if self.comicid == self.comicEnd:
             dlg = QtGui.QDialog()
             dialog = last.Ui_Dialog()
             dialog.setupUi(dlg)
@@ -63,3 +65,12 @@ class Dilbert():
         else:
             self.comicid += timedelta(days=1)
             return self.comic()
+
+    def randComic(self):
+        delta = self.comicEnd - self.comicStart
+        rand = str(delta)
+        rand1 = rand[0:4]
+        rand2 = int(rand1)
+        dateDiff = int(float(random.random()) * rand2)
+        self.comicid = self.comicStart + timedelta(days = dateDiff)
+        return self.comic()
