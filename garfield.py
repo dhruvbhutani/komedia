@@ -23,7 +23,7 @@ class Garfield():
         if not os.path.exists(os.path.expanduser('~/.komedia/garfield')):
             os.mkdir(os.path.expanduser('~/.komedia/garfield'))
         self.comicid = '%s/%s/%s' %(date.today().year, date.today().month, date.today().day)
-        self.comicStart = 
+        self.comicStart = date(1978, 6, 19)
         self.comicEnd = self.comicid
 
     def comic(self):
@@ -52,7 +52,7 @@ class Garfield():
             dialog.setupUi(dlg)
             dlg.exec_()
         else:
-            self.comicid -= timedelta(days=1)
+             -= timedelta(days=1)
             return self.comic()
 
     def nextComic(self):

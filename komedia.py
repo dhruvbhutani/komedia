@@ -17,11 +17,11 @@ class Komedia(QtGui.QMainWindow):
             self.ui.comboBox.addItem(i)
         if not os.path.exists(os.path.expanduser('~/.komedia')):
             os.mkdir(os.path.expanduser('~/.komedia'))
-#        self.dilbert = Dilbert()
-#        self.xkcd = XKCD()
-#        self.comicData = Dilbert.comic(self.dilbert)
-#        self.loadComic()
-#        self.comic = 'Dilbert'
+        self.dilbert = Dilbert()
+        self.xkcd = XKCD()
+        self.comicData = Dilbert.comic(self.dilbert)
+        self.loadComic()
+        self.comic = 'Dilbert'
 
     def changeComic(self, text):
         text = str(text)
