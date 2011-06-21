@@ -1,9 +1,0 @@
-- Add config support - Need to be redone, but wondering if this is really needed, must rethink this some other time
-
-- make a script for cron job to use - This has to add a notification system as well, but this works nicely only for xkcd, as dilbert will work fine just about every day [Actually no if I get the dilbert/garfield part right where I store link to last image and checks with that I can make a notification for that as well]
-
-- Add options to add more websites (use the gocomics stuff so that its easy to add others, all of them use the same stuff, but need to configure the starting date and ending date if there is a difference of a few days between every comics)
-
-- Do a survey for popular comics
-
-- kstar requested to add the tamil and the kannada comics as well, survery those and see that I can get those working, feature requests are important and nice
