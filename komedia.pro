@@ -24,14 +24,14 @@ symbian:TARGET.CAPABILITY += NetworkServices
 
 QT += webkit
 SOURCES += main.cpp mainwindow.cpp \
-    xkcd.cpp \
-    limitdialog.cpp
+    limitdialog.cpp \
+    xkcd.cpp
 HEADERS += mainwindow.h \
-    xkcd.h \
-    limitdialog.h
+    limitdialog.h \
+    xkcd.h
 FORMS += mainwindow.ui \
-    xkcd.ui \
-    limitdialog.ui
+    limitdialog.ui \
+    xkcd.ui
 
 # Please do not modify the following two lines. Required for deployment.
 include(deployment.pri)

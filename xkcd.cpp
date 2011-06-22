@@ -1,6 +1,5 @@
 #include "xkcd.h"
 #include "ui_xkcd.h"
-#include "mainwindow.h"
 #include <QtWebKit/QWebElement>
 #include <QtWebKit/QWebPage>
 #include <QtWebKit/QWebFrame>
@@ -10,10 +9,13 @@
 #include "limitdialog.h"
 
 xkcd::xkcd(QWidget *parent) :
-    QWidget(parent),
+    QMainWindow(parent),
     ui(new Ui::xkcd)
 {
     ui->setupUi(this);
+#ifdef Q_WS_MAEMO_5
+    setAttribute(Qt::WA_Maemo5StackedWindow);
+#endif
     xkcd::view = new QWebView();
     xkcd::view->setUrl(QUrl("http://xkcd.com"));
     xkcd::altFlag = 0;

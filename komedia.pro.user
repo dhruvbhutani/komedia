@@ -2,7 +2,7 @@
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
-  <value type="int">3</value>
+  <value type="int">0</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.EditorSettings</variable>
@@ -299,7 +299,7 @@
    <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">Maemo5</value>
    <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">Qt4ProjectManager.Target.MaemoDeviceTarget</value>
    <value key="ProjectExplorer.Target.ActiveBuildConfiguration" type="int">0</value>
-   <value key="ProjectExplorer.Target.ActiveDeployConfiguration" type="int">0</value>
+   <value key="ProjectExplorer.Target.ActiveDeployConfiguration" type="int">1</value>
    <value key="ProjectExplorer.Target.ActiveRunConfiguration" type="int">0</value>
    <valuemap key="ProjectExplorer.Target.BuildConfiguration.0" type="QVariantMap">
     <value key="ProjectExplorer.BuildCOnfiguration.ToolChain" type="QString">Qt4ProjectManager.ToolChain.Maemo:/home/hiemanshu/QtSDK/Maemo/4.6.2/targets/fremantle-pr13/bin/gcc.arm-linux-generic-elf-32bit.</value>
@@ -431,7 +431,36 @@
     <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString"></value>
     <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">ProjectExplorer.DefaultDeployConfiguration</value>
    </valuemap>
-   <value key="ProjectExplorer.Target.DeployConfigurationCount" type="int">1</value>
+   <valuemap key="ProjectExplorer.Target.DeployConfiguration.1" type="QVariantMap">
+    <valuemap key="ProjectExplorer.BuildConfiguration.BuildStepList.0" type="QVariantMap">
+     <valuemap key="ProjectExplorer.BuildStepList.Step.0" type="QVariantMap">
+      <value key="Packaging Enabled" type="bool">true</value>
+      <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString">Packaging for Maemo</value>
+      <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString"></value>
+      <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">Qt4ProjectManager.MaemoPackageCreationStep</value>
+     </valuemap>
+     <valuemap key="ProjectExplorer.BuildStepList.Step.1" type="QVariantMap">
+      <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString">Deploy to Maemo5 device</value>
+      <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString"></value>
+      <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">Qt4ProjectManager.MaemoDeployStep</value>
+      <value key="Qt4ProjectManager.MaemoRunConfiguration.DeployToSysroot" type="bool">true</value>
+      <value key="Qt4ProjectManager.MaemoRunConfiguration.DeviceId" type="qulonglong">0</value>
+      <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedFiles" type="QVariantList"/>
+      <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedHosts" type="QVariantList"/>
+      <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedRemotePaths" type="QVariantList"/>
+      <valuelist key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedTimes" type="QVariantList"/>
+     </valuemap>
+     <value key="ProjectExplorer.BuildStepList.StepsCount" type="int">2</value>
+     <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString">Deploy</value>
+     <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString"></value>
+     <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">ProjectExplorer.BuildSteps.Deploy</value>
+    </valuemap>
+    <value key="ProjectExplorer.BuildConfiguration.BuildStepListCount" type="int">1</value>
+    <value key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName" type="QString">Deploy to Maemo5 device</value>
+    <value key="ProjectExplorer.ProjectConfiguration.DisplayName" type="QString">Deploy to Maemo5 device2</value>
+    <value key="ProjectExplorer.ProjectConfiguration.Id" type="QString">ProjectExplorer.DefaultDeployConfiguration</value>
+   </valuemap>
+   <value key="ProjectExplorer.Target.DeployConfigurationCount" type="int">2</value>
    <valuemap key="ProjectExplorer.Target.RunConfiguration.0" type="QVariantMap">
     <valuelist key="Analyzer.Valgrind.AddedSupressionFiles" type="QVariantList"/>
     <value key="Analyzer.Valgrind.FilterExternalIssues" type="bool">true</value>

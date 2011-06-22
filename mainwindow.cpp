@@ -63,7 +63,7 @@ void MainWindow::showExpanded()
 #ifdef Q_OS_SYMBIAN
     showFullScreen();
 #elif defined(Q_WS_MAEMO_5)
-    showFullScreen();
+    show();
 #else
     show();
 #endif
