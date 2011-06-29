@@ -1,5 +1,11 @@
 <RCC>
     <qresource prefix="/icons">
         <file alias="xkcd.png">icons/xkcd.png</file>
+        <file alias="dilbert.pn">icons/dilbert.png</file>
+        <file alias="garfield.png">icons/garfield.png</file>
+        <file alias="calvin.png">icons/calvin.png</file>
+        <file alias="peanuts.png">icons/peanuts.png</file>
+        <file alias="wizofid.png">icons/wizardofid.png</file>
+        <file alias="s.css">disableselect.css</file>
     </qresource>
 </RCC>

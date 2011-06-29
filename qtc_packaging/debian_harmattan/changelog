@@ -1,5 +1,6 @@
-komedia (0.0.1) unstable; urgency=low
+komedia (0.0.3) unstable; urgency=low
 
-  * Initial Release.
+  * Fixed a few other stuff
+  * Fixed the mainwindow not going into fullscreen
 
  -- Hiemanshu Sharma <hiemanshu@unknown>  Tue, 21 Jun 2011 19:49:18 +0530

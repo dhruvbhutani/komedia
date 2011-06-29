@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>854</width>
     <height>480</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="3">
+    <item row="0" column="4">
      <widget class="QPushButton" name="calvin">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -38,8 +38,8 @@
         <height>180</height>
        </size>
       </property>
-      <property name="text">
-       <string>PushButton</string>
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/icons/calvin.png) no-repeat;</string>
       </property>
      </widget>
     </item>
@@ -95,8 +95,8 @@
         <height>180</height>
        </size>
       </property>
-      <property name="text">
-       <string>PushButton</string>
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/icons/dilbert.pn) no-repeat;</string>
       </property>
      </widget>
     </item>
@@ -120,52 +120,60 @@
         <height>180</height>
        </size>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/icons/garfield.png) no-repeat;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="peanuts">
+      <property name="minimumSize">
+       <size>
+        <width>180</width>
+        <height>180</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/icons/peanuts.png) no-repeat;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QPushButton" name="wizofid">
+      <property name="minimumSize">
+       <size>
+        <width>180</width>
+        <height>180</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/icons/wizofid.png) no-repeat;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="4">
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="minimumSize">
+       <size>
+        <width>180</width>
+        <height>180</height>
+       </size>
+      </property>
       <property name="text">
        <string>PushButton</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="2">
-     <widget class="QPushButton" name="exit">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-        <horstretch>128</horstretch>
-        <verstretch>128</verstretch>
-       </sizepolicy>
-      </property>
+    <item row="1" column="2">
+     <widget class="QPushButton" name="pushButton_4">
       <property name="minimumSize">
        <size>
         <width>180</width>
-        <height>100</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>180</width>
-        <height>100</height>
+        <height>180</height>
        </size>
       </property>
       <property name="text">
-       <string>Exit</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QPushButton" name="settings">
-      <property name="minimumSize">
-       <size>
-        <width>180</width>
-        <height>100</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>180</width>
-        <height>100</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Settings</string>
+       <string>PushButton</string>
       </property>
      </widget>
     </item>
@@ -182,8 +190,8 @@
    <slot>openXKCD()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>135</x>
-     <y>246</y>
+     <x>151</x>
+     <y>219</y>
     </hint>
     <hint type="destinationlabel">
      <x>219</x>
@@ -192,23 +200,93 @@
    </hints>
   </connection>
   <connection>
-   <sender>exit</sender>
+   <sender>dilbert</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>close()</slot>
+   <slot>openDilbert()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>530</x>
-     <y>396</y>
+     <x>290</x>
+     <y>145</y>
     </hint>
     <hint type="destinationlabel">
-     <x>687</x>
-     <y>389</y>
+     <x>599</x>
+     <y>285</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>garfield</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>openGarfield()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>480</x>
+     <y>180</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>756</x>
+     <y>336</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>calvin</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>openCalvin()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>657</x>
+     <y>179</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>754</x>
+     <y>276</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>peanuts</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>openPeanuts()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>101</x>
+     <y>297</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>141</x>
+     <y>238</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>wizofid</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>openWizofid()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>346</x>
+     <y>342</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>426</x>
+     <y>246</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
   <slot>openXKCD()</slot>
+  <slot>openDilbert()</slot>
+  <slot>openGarfield()</slot>
+  <slot>openCalvin()</slot>
+  <slot>openPeanuts()</slot>
+  <slot>openWizofid()</slot>
+  <slot>test()</slot>
  </slots>
 </ui>

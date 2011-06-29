@@ -31,6 +31,11 @@ private:
 
 private slots:
     void openXKCD();
+    void openDilbert();
+    void openGarfield();
+    void openCalvin();
+    void openPeanuts();
+    void openWizofid();
 };
 
 #endif // MAINWINDOW_H

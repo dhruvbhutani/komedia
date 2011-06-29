@@ -4,23 +4,21 @@
 #include <QtWebKit/QWebPage>
 #include <QtWebKit/QWebFrame>
 #include <QtWebKit/QWebElementCollection>
-#include <stdio.h>
 #include <QtWebKit/QWebView>
-#include "limitdialog.h"
+#include <QDebug>
 
 xkcd::xkcd(QWidget *parent) :
-    QMainWindow(parent),
+    QWidget(parent),
     ui(new Ui::xkcd)
 {
     ui->setupUi(this);
-#ifdef Q_WS_MAEMO_5
-    setAttribute(Qt::WA_Maemo5StackedWindow);
-#endif
-    xkcd::view = new QWebView();
-    xkcd::view->setUrl(QUrl("http://xkcd.com"));
     xkcd::altFlag = 0;
     ui->altText->hide();
     xkcd::latestSet=0;
+    xkcd::view = new QWebView();
+    this->setWindowTitle("XKCD");
+    xkcd::view->setUrl(QUrl("http://xkcd.com"));
+    ui->webView->setHtml(QString("<body>Blah Blah Blah Blah Blah</body>"));
     QObject::connect(view, SIGNAL(loadFinished(bool)), this, SLOT(scrap(bool)));
     QObject::connect(view, SIGNAL(loadProgress(int)), this, SLOT(progress(int)));
     QObject::connect(view, SIGNAL(loadStarted()), this, SLOT(unhideProgress()));
@@ -40,14 +38,30 @@ void xkcd::scrap(bool ok)
         QWebElement img = imgs.at(1);
         ui->webView->setUrl(QUrl(img.attribute("src").toAscii().constData()));
         ui->altText->setText(QString(img.attribute("title")));
-        QWebElement link = view->page()->mainFrame()->findFirstElement("h3");
         if (latestSet == 0)
         {
+            QWebElement link = view->page()->mainFrame()->findFirstElement("h3");
             QString latest = QString(link.toPlainText());
             Latest = latest.split("/", QString::SkipEmptyParts);
             xkcd::latest = Latest.at(2).toInt();
             xkcd::comicid = xkcd::latest;
             latestSet = 1;
+        }
+        if (xkcd::comicid == 0)
+        {
+            ui->previous->setEnabled(false);
+        }
+        else
+        {
+            ui->previous->setEnabled(true);
+        }
+        if (xkcd::comicid == xkcd::latest)
+        {
+            ui->next->setEnabled(false);
+        }
+        else
+        {
+            ui->next->setEnabled(true);
         }
     }
 }
@@ -69,35 +83,16 @@ void xkcd::alt()
 
 void xkcd::prev()
 {
-    if (xkcd::comicid == 0)
-    {
-        limitDialog *dlg = new limitDialog();
-        dlg->setText(QString("This is the first comic. No older comic available."));
-        dlg->show();
-    }
-    else
-    {
-        xkcd::comicid -= 1;
-        QString url = QString("http://xkcd.com/%1/").arg(QVariant(xkcd::comicid).toString());
-        xkcd::view->setUrl(QVariant(url).toUrl());
-    }
-
+    xkcd::comicid -= 1;
+    QString url = QString("http://xkcd.com/%1/").arg(QVariant(xkcd::comicid).toString());
+    xkcd::view->setUrl(QVariant(url).toUrl());
 }
 
 void xkcd::next()
 {
-    if (xkcd::comicid == xkcd::latest)
-    {
-        limitDialog *dlg = new limitDialog();
-        dlg->setText(QString("This is the last comic. Please wait for an update."));
-        dlg->show();
-    }
-    else
-    {
-        xkcd::comicid += 1;
-        QString url = QString("http://xkcd.com/%1/").arg(QVariant(xkcd::comicid).toString());
-        xkcd::view->setUrl(QVariant(url).toUrl());
-    }
+    xkcd::comicid += 1;
+    QString url = QString("http://xkcd.com/%1/").arg(QVariant(xkcd::comicid).toString());
+    xkcd::view->setUrl(QVariant(url).toUrl());
 }
 
 void xkcd::randComic()

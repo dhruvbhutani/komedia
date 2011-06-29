@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>xkcd</class>
- <widget class="QWidget" name="xkcd">
+ <class>dilbert</class>
+ <widget class="QWidget" name="dilbert">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -31,44 +31,9 @@
     </widget>
    </item>
    <item>
-    <widget class="QTextBrowser" name="altText">
-     <property name="minimumSize">
-      <size>
-       <width>50</width>
-       <height>60</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>234234</width>
-       <height>234234</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="alt">
-       <property name="minimumSize">
-        <size>
-         <width>150</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>150</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Alt Text</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="previous">
+      <widget class="QPushButton" name="prev">
        <property name="minimumSize">
         <size>
          <width>100</width>
@@ -77,7 +42,7 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>500</width>
+         <width>300</width>
          <height>16777215</height>
         </size>
        </property>
@@ -87,7 +52,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="random">
        <property name="minimumSize">
         <size>
          <width>100</width>
@@ -115,7 +80,7 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>500</width>
+         <width>300</width>
          <height>16777215</height>
         </size>
        </property>
@@ -145,90 +110,73 @@
  <resources/>
  <connections>
   <connection>
-   <sender>alt</sender>
+   <sender>prev</sender>
    <signal>clicked()</signal>
-   <receiver>xkcd</receiver>
-   <slot>alt()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>117</x>
-     <y>462</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>185</x>
-     <y>473</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>previous</sender>
-   <signal>clicked()</signal>
-   <receiver>xkcd</receiver>
+   <receiver>dilbert</receiver>
    <slot>prev()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>312</x>
-     <y>455</y>
+     <x>322</x>
+     <y>442</y>
     </hint>
     <hint type="destinationlabel">
-     <x>340</x>
-     <y>477</y>
+     <x>187</x>
+     <y>378</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_2</sender>
+   <sender>random</sender>
    <signal>clicked()</signal>
-   <receiver>xkcd</receiver>
+   <receiver>dilbert</receiver>
    <slot>randComic()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>474</x>
-     <y>469</y>
+     <x>416</x>
+     <y>433</y>
     </hint>
     <hint type="destinationlabel">
-     <x>581</x>
-     <y>475</y>
+     <x>448</x>
+     <y>387</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>next</sender>
    <signal>clicked()</signal>
-   <receiver>xkcd</receiver>
+   <receiver>dilbert</receiver>
    <slot>next()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>632</x>
-     <y>469</y>
+     <x>521</x>
+     <y>441</y>
     </hint>
     <hint type="destinationlabel">
-     <x>730</x>
-     <y>478</y>
+     <x>585</x>
+     <y>380</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>pushButton</sender>
    <signal>clicked()</signal>
-   <receiver>xkcd</receiver>
+   <receiver>dilbert</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>733</x>
-     <y>453</y>
+     <x>625</x>
+     <y>437</y>
     </hint>
     <hint type="destinationlabel">
-     <x>794</x>
-     <y>379</y>
+     <x>665</x>
+     <y>388</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
-  <slot>alt()</slot>
   <slot>prev()</slot>
-  <slot>randComic()</slot>
   <slot>next()</slot>
+  <slot>randComic()</slot>
  </slots>
 </ui>

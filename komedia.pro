@@ -24,14 +24,17 @@ symbian:TARGET.CAPABILITY += NetworkServices
 
 QT += webkit
 SOURCES += main.cpp mainwindow.cpp \
-    limitdialog.cpp \
-    xkcd.cpp
+    xkcd.cpp \
+    dilbert.cpp \
+    gocomics.cpp
 HEADERS += mainwindow.h \
-    limitdialog.h \
-    xkcd.h
+    xkcd.h \
+    dilbert.h \
+    gocomics.h
 FORMS += mainwindow.ui \
-    limitdialog.ui \
-    xkcd.ui
+    xkcd.ui \
+    dilbert.ui \
+    gocomics.ui
 
 # Please do not modify the following two lines. Required for deployment.
 include(deployment.pri)
@@ -49,7 +52,8 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/copyright \
     qtc_packaging/debian_harmattan/control \
     qtc_packaging/debian_harmattan/compat \
-    qtc_packaging/debian_harmattan/changelog
+    qtc_packaging/debian_harmattan/changelog \
+    komedia.spec
 
 RESOURCES += \
     icons.qrc

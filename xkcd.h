@@ -2,13 +2,13 @@
 #define XKCD_H
 
 #include <QtWebKit/QWebView>
-#include <QMainWindow>
+#include <QWidget>
 
 namespace Ui {
     class xkcd;
 }
 
-class xkcd : public QMainWindow
+class xkcd : public QWidget
 {
     Q_OBJECT
 

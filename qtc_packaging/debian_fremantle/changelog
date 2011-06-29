@@ -1,5 +1,6 @@
-komedia (0.0.1) unstable; urgency=low
+komedia (0.0.3) unstable; urgency=low
 
-  * Initial Release.
+  * Fixed everything to open in same window instead of new
+  * Added back to menu buttons, remove spacer
 
- -- Hiemanshu Sharma <mail@theindiangeek.in>  Sat, 11 Jun 2011 17:20:49 +0530
+ -- Hiemanshu Sharma <mail@theindiangeek.in> Wed, 29 Jun 2011 01:13:45 +0530

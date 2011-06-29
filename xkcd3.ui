@@ -1,52 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>xkcd</class>
- <widget class="QWidget" name="xkcd">
+ <widget class="QMainWindow" name="xkcd">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>854</width>
+    <width>800</width>
     <height>480</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>MainWindow</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QWebView" name="webView">
-     <property name="url">
-      <url>
-       <string>about:blank</string>
-      </url>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QProgressBar" name="progressBar">
-     <property name="value">
-      <number>0</number>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QTextBrowser" name="altText">
-     <property name="minimumSize">
-      <size>
-       <width>50</width>
-       <height>60</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>234234</width>
-       <height>234234</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWebView" name="webView">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>9</y>
+      <width>782</width>
+      <height>322</height>
+     </rect>
+    </property>
+    <property name="url">
+     <url>
+      <string>about:blank</string>
+     </url>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="altText">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>337</y>
+      <width>782</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>50</width>
+      <height>60</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>234234</width>
+      <height>234234</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="progressBar">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>403</y>
+      <width>99</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="value">
+     <number>0</number>
+    </property>
+   </widget>
+   <widget class="QWidget" name="">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="alt">
@@ -124,16 +142,9 @@
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="pushButton">
-       <property name="text">
-        <string>Back to Menu</string>
-       </property>
-      </widget>
-     </item>
     </layout>
-   </item>
-  </layout>
+   </widget>
+  </widget>
  </widget>
  <customwidgets>
   <customwidget>
@@ -151,12 +162,12 @@
    <slot>alt()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>117</x>
-     <y>462</y>
+     <x>130</x>
+     <y>469</y>
     </hint>
     <hint type="destinationlabel">
-     <x>185</x>
-     <y>473</y>
+     <x>272</x>
+     <y>417</y>
     </hint>
    </hints>
   </connection>
@@ -167,28 +178,12 @@
    <slot>prev()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>312</x>
-     <y>455</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>340</x>
-     <y>477</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_2</sender>
-   <signal>clicked()</signal>
-   <receiver>xkcd</receiver>
-   <slot>randComic()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>474</x>
+     <x>577</x>
      <y>469</y>
     </hint>
     <hint type="destinationlabel">
-     <x>581</x>
-     <y>475</y>
+     <x>331</x>
+     <y>411</y>
     </hint>
    </hints>
   </connection>
@@ -199,36 +194,36 @@
    <slot>next()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>632</x>
+     <x>789</x>
      <y>469</y>
     </hint>
     <hint type="destinationlabel">
-     <x>730</x>
-     <y>478</y>
+     <x>738</x>
+     <y>432</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>pushButton</sender>
+   <sender>pushButton_2</sender>
    <signal>clicked()</signal>
    <receiver>xkcd</receiver>
-   <slot>close()</slot>
+   <slot>randComic()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>733</x>
-     <y>453</y>
+     <x>683</x>
+     <y>469</y>
     </hint>
     <hint type="destinationlabel">
-     <x>794</x>
-     <y>379</y>
+     <x>618</x>
+     <y>436</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
-  <slot>alt()</slot>
-  <slot>prev()</slot>
-  <slot>randComic()</slot>
   <slot>next()</slot>
+  <slot>prev()</slot>
+  <slot>alt()</slot>
+  <slot>randComic()</slot>
  </slots>
 </ui>

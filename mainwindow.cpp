@@ -3,11 +3,14 @@
 
 #include <QtCore/QCoreApplication>
 #include <xkcd.h>
+#include <dilbert.h>
+#include <gocomics.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Komedia");
 }
 
 MainWindow::~MainWindow()
@@ -60,23 +63,64 @@ void MainWindow::setOrientation(ScreenOrientation orientation)
 
 void MainWindow::showExpanded()
 {
-#ifdef Q_OS_SYMBIAN
     showFullScreen();
-#elif defined(Q_WS_MAEMO_5)
-    show();
-#else
-    show();
-#endif
+    //show();
 }
 
 void MainWindow::openXKCD()
 {
     xkcd *xkcdG = new xkcd();
-    #ifdef Q_OS_SYMBIAN
-        xkcdG->showFullScreen();
-    #elif defined(Q_WS_MAEMO_5)
-        xkcdG->showFullScreen();
-    #else
-        xkcdG->show();
-    #endif
+    //xkcdG->showFullScreen();
+    xkcdG->setParent(this);
+    xkcdG->setAutoFillBackground(true);
+    xkcdG->showMaximized();
 }
+
+void MainWindow::openDilbert()
+{
+    dilbert *dilbertG = new dilbert(this);
+    //dilbertG->showFullScreen();
+    dilbertG->setAutoFillBackground(true);
+    dilbertG->showMaximized();
+}
+
+void MainWindow::openGarfield()
+{
+    gocomics *garfield = new gocomics(this);
+    garfield->setWindowTitle(QString("Garfield"));
+    garfield->setStart(1978, 6, 19);
+    garfield->setComicName("garfield");
+    garfield->setAutoFillBackground(true);
+    garfield->show();
+}
+
+void MainWindow::openCalvin()
+{
+    gocomics *calvin = new gocomics(this);
+    calvin->setWindowTitle(QString("Calvin & Hobbes"));
+    calvin->setStart(1985, 11, 18);
+    calvin->setComicName("calvinandhobbes");
+    calvin->setAutoFillBackground(true);
+    calvin->show();
+}
+
+void MainWindow::openPeanuts()
+{
+    gocomics *peanuts = new gocomics(this);
+    peanuts->setWindowTitle(QString("Peanuts"));
+    peanuts->setStart(1950, 10, 02);
+    peanuts->setComicName("peanuts");
+    peanuts->setAutoFillBackground(true);
+    peanuts->show();
+}
+
+void MainWindow::openWizofid()
+{
+    gocomics *wizofid = new gocomics(this);
+    wizofid->setWindowTitle(QString("Wizard of Id"));
+    wizofid->setStart(2002, 8, 12);
+    wizofid->setComicName("wizardofid");
+    wizofid->setAutoFillBackground(true);
+    wizofid->show();
+}
+
